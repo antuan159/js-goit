@@ -3,7 +3,7 @@
 const ADMIN_PASSWORD = '123';
 let message = prompt('Enter your password');
 
-if (message == null) {
+if (!message) {
   message = 'Отменено пользователем!';
 } else if (ADMIN_PASSWORD === message) {
   message = 'Добро пожаловать!';
@@ -15,35 +15,40 @@ alert(message);
 // droids
 let credits = 23580;
 const pricePerDroid = 3000;
+let test = 'Вы купили 1 дроидов, на счету осталось 20580 кредитов.';
 
-let count = prompt('Enter quantity to buy ');
+let count = prompt('Введите число роботов для покупки');
 
-if (count == null) {
+if (!count) {
   console.log('Отменено пользователем!');
-} else if (!isFinite(count)) {
-  console.log('no number entered');
+} else if (Number.isInteger(count)) {
+  console.log('введено не числовое значение');
 } else {
   let totalPrice = count * pricePerDroid;
+
   if (totalPrice > credits) {
     console.log('Недостаточно средств на счету!');
   } else {
-    console.log(
+    let result =
       'Вы купили ' +
-        count +
-        ' дроидов, на счету осталось ' +
-        (credits - totalPrice) +
-        ' кредитов.',
-    );
+      count +
+      ' дроидов, на счету осталось ' +
+      (credits - totalPrice) +
+      ' кредитов.';
+    console.assert(test === result, `Error!!`);
+    console.log(result);
   }
 }
 
 // delivery
-let country = prompt('Enter your country');
-if (country == null) {
+test = 'Доставка в Китай будет стоить 100 кредитов';
+let country = prompt('Введите страну доставки');
+if (!country) {
   console.log('Отменено пользователем!');
 } else {
   let countryDelivery = country.toLocaleLowerCase();
   let credits = 0;
+
   switch (countryDelivery) {
     case 'китай':
       credits = 100;
@@ -65,8 +70,9 @@ if (country == null) {
       break;
   }
   if (credits != 0) {
-    console.log(
-      `Доставка в ${countryDelivery} будет стоить ${credits} кредитов`,
-    );
+    let country = countryDelivery[0].toUpperCase() + countryDelivery.slice(1);
+    let tmp = `Доставка в ${country} будет стоить ${credits} кредитов`;
+    console.assert(test === tmp, 'Error');
+    console.log(tmp);
   }
 }
