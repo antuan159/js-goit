@@ -21,15 +21,8 @@ const notepad = {
     return undefined;
   },
   saveNote(note) {
-    notepad.notes.push(note);
+    this.notes.push(note);
     return note;
-  },
-  deleteNote(id) {
-    for (const key in this.notes) {
-      if (this.notes[key].id === id) {
-        this.notes.splice(key, key);
-      }
-    }
   },
   updateNoteContent(id, updatedContent) {
     /*
@@ -72,6 +65,13 @@ const notepad = {
       }
     }
     return tmp;
+  },
+  deleteNote(id) {
+    for (const key in this.notes) {
+      if (this.notes[key].id === id) {
+        this.notes.splice(key, key);
+      }
+    }
   },
 };
 
@@ -155,6 +155,7 @@ console.log(
  */
 notepad.updateNoteContent('id-3', {
   title: '111',
+  adsfsadfd: 'qwerqewer',
 });
 
 console.log('Заметки после обновления контента заметки с id-3: ', notepad.getNotes());
