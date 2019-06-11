@@ -13,36 +13,14 @@ const notepad = {
     return this.notes;
   },
   findNoteById(id) {
-    for (const key in this.notes) {
-      if (this.notes[key].id === id) {
-        return this.notes[key];
-      }
-    }
-    return undefined;
+    return this.notes.find(e => e.id === id);
   },
   saveNote(note) {
     this.notes.push(note);
     return note;
   },
   updateNoteContent(id, updatedContent) {
-    /*
-     * Обновляет контент заметки
-     * updatedContent - объект с полями вида {имя: значение, имя: значение}
-     * Свойств в объекте updatedContent может быть произвольное количество
-     *
-     * Принимает: идентификатор заметки и объект, полями которого надо обновить заметку
-     * Возвращает: обновленную заметку
-     */
-    note = notepad.findNoteById(id);
-
-    for (const j in updatedContent) {
-      for (const i in note) {
-        if (i === j) {
-          note[i] = updatedContent[j];
-        }
-      }
-    }
-    return note;
+    Object.assign(this.findNoteById(id), updatedContent);
   },
   updateNotePriority(id, priority) {
     const tmp = notepad.findNoteById(id);
