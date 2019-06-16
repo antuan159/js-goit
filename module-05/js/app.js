@@ -23,16 +23,16 @@ const Notepad = function Notepad(notes = []) {
   };
 
   this.updateNotePriority = function (id, priority) {
-    const tmp = notepad.findNoteById(id);
+    const tmp = this.findNoteById(id);
     if (tmp) tmp.priority = priority;
   };
 
   this.filterNotesByQuery = function (query) {
     const tmp = [];
     for (const key in this.notes) {
-      const strTitle = notepad.notes[key].title.toLowerCase().indexOf(query.toLowerCase());
-      const strBody = notepad.notes[key].body.toLowerCase().indexOf(query.toLowerCase());
-      if (strTitle !== -1 || strBody !== -1) tmp.push(notepad.notes[key]);
+      const strTitle = this.notes[key].title.toLowerCase().indexOf(query.toLowerCase());
+      const strBody = this.notes[key].body.toLowerCase().indexOf(query.toLowerCase());
+      if (strTitle !== -1 || strBody !== -1) tmp.push(this.notes[key]);
     }
     return tmp;
   };
@@ -40,8 +40,8 @@ const Notepad = function Notepad(notes = []) {
   this.filterNotesByPriority = function (priority) {
     const tmp = [];
     for (const key in this.notes) {
-      if (notepad.notes[key].priority == priority) {
-        tmp.push(notepad.notes[key]);
+      if (this.notes[key].priority == priority) {
+        tmp.push(this.notes[key]);
       }
     }
     return tmp;
