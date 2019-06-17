@@ -3,9 +3,6 @@ const Notepad = function Notepad(notes = []) {
   this.notes = notes.slice();
 
   this.getNotes = function () {
-    for (const key in this.notes) {
-      console.log(notepad.notes[key]);
-    }
     return this.notes;
   };
 
