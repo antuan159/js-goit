@@ -50,7 +50,7 @@ class Notepad {
   deleteNote = function(id) {
     for (const key in this.notes) {
       if (this.notes[key].id === id) {
-        this.notes.splice(key, key);
+        this.notes.splice(key, 1);
       }
     }
   };

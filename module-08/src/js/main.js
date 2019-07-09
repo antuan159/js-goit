@@ -30,15 +30,68 @@ const initialNotes = [
     priority: PRIORITY_TYPES.LOW,
   },
 ];
+document.addEventListener('DOMContentLoaded', callback);
 
-const notepad = new Notepad(initialNotes);
-console.log(notepad.getNotes());
+function callback() {
+  const notepad = new Notepad(initialNotes);
+  console.log(notepad.getNotes());
 
-const noteList = document.querySelector('.note-list');
+  // ======= variables =========
+  const noteList = document.querySelector('.note-list');
+  const form = document.querySelector('.note-editor');
+  const list = document.querySelector('.note-list');
+  const search = document.querySelector('.search-form');
 
-function renderNoteList(listRef, notes) {
-  const arr = notes.map(element => createListItem(element));
-  listRef.append(...arr);
+  // ======= hendlers ==========
+  form.addEventListener('submit', hendleSabmitForm);
+  list.addEventListener('click', hendleDeleteNote);
+  search.addEventListener('input', hendleFilterNotes);
+
+  //======== functions =========
+
+  renderNoteList(noteList, initialNotes);
+
+  function renderNoteList(listRef, notes) {
+    Array.from(listRef.children).forEach(element => {
+      element.remove();
+    });
+    const arr = notes.map(element => createListItem(element));
+    listRef.append(...arr);
+  }
+
+  function hendleSabmitForm(event) {
+    event.preventDefault();
+    const title = document.querySelector('.note-editor input');
+    const body = document.querySelector('.note-editor textarea');
+    if (title.value === '' && body.value === '') {
+      alert('Необходимо заполнить все поля!');
+      return;
+    }
+    const note = createNote(title.value, body.value);
+    notepad.saveNote(note);
+    noteList.append(createListItem(note));
+    title.value = '';
+    body.value = '';
+  }
+
+  function hendleDeleteNote(event) {
+    const target = event.target;
+    const text = target.textContent;
+
+    if (target.nodeName !== 'I' || text !== 'delete') return;
+
+    const note = event.target.closest('li');
+
+    removeListItem(note);
+  }
+
+  function hendleFilterNotes(event) {
+    const newNotepad = notepad.filterNotesByQuery(event.target.value);
+    renderNoteList(noteList, newNotepad);
+  }
+
+  function removeListItem(note) {
+    notepad.deleteNote(note.dataset.id);
+    note.remove();
+  }
 }
-
-renderNoteList(noteList, initialNotes);

@@ -48,6 +48,49 @@ function createSectionFooter(classFooter) {
 function createSpan(classSpan, text) {
   const span = document.createElement('span');
   span.classList.add(classSpan);
-  span.textContent = text;
+  span.textContent = createStringPriority(text);
   return span;
+}
+
+function createStringPriority(ID) {
+  let textContent;
+  switch (ID) {
+    case 0:
+      {
+        textContent = 'Priority: Low';
+      }
+      break;
+    case 1:
+      {
+        textContent = 'Priority: Normal';
+      }
+      break;
+    case 2:
+      {
+        textContent = 'Priority: High';
+      }
+      break;
+  }
+  return textContent;
+}
+
+function generateUniqueId() {
+  return (
+    Math.random()
+      .toString(36)
+      .substring(2, 15) +
+    Math.random()
+      .toString(36)
+      .substring(2, 15)
+  );
+}
+
+function createNote(_title, _body) {
+  const note = {
+    id: generateUniqueId(),
+    title: _title,
+    body: _body,
+    priority: PRIORITY_TYPES.LOW,
+  };
+  return note;
 }

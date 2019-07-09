@@ -33,27 +33,35 @@ function createNoteContent(note) {
 // footer
 function createFooter(note) {
   const noteFooter = createSectionFooter('note__footer');
-  noteFooter.appendChild(createFirstSection(note));
-  noteFooter.appendChild(createSecondSection());
+  noteFooter.appendChild(
+    createFirstSection(note, ICON_TYPES, NOTE_ACTIONS, PRIORITY_TYPES)
+  );
+  noteFooter.appendChild(createSecondSection(ICON_TYPES, NOTE_ACTIONS));
 
   return noteFooter;
 }
 
 // footer first section
-function createFirstSection(note) {
+function createFirstSection(note, ICON_TYPES, NOTE_ACTIONS) {
   // create 1 button 1 section
-  const buttonFirstSectionFirst = createButton('action', 'decrease-priority');
+  const buttonFirstSectionFirst = createButton(
+    'action',
+    `${NOTE_ACTIONS.DECREASE_PRIORITY}`
+  );
   let textButton = createTextButton(
-    'expand_more',
+    `${ICON_TYPES.ARROW_DOWN}`,
     'material-icons',
     'action__icon'
   );
   buttonFirstSectionFirst.appendChild(textButton);
 
   // create 2 button 1 section
-  const buttonFirstSectionSecond = createButton('action', 'increase-priority');
+  const buttonFirstSectionSecond = createButton(
+    'action',
+    `${NOTE_ACTIONS.INCREASE_PRIORITY}`
+  );
   textButton = createTextButton(
-    'expand_less',
+    `${ICON_TYPES.ARROW_UP}`,
     'material-icons',
     'action__icon'
   );
@@ -72,15 +80,29 @@ function createFirstSection(note) {
 }
 
 // footer second section
-function createSecondSection() {
+function createSecondSection(ICON_TYPES, NOTE_ACTIONS) {
   // create 1 button 2 section
-  const buttonSecondSectionFirst = createButton('action', 'edit-note');
-  let textButton = createTextButton('edit', 'material-icons', 'action__icon');
+  const buttonSecondSectionFirst = createButton(
+    'action',
+    `${NOTE_ACTIONS.EDIT}`
+  );
+  let textButton = createTextButton(
+    `${ICON_TYPES.EDIT}`,
+    'material-icons',
+    'action__icon'
+  );
   buttonSecondSectionFirst.appendChild(textButton);
 
   // create 2 button 2 section
-  const buttonSecondSectionSecond = createButton('action', 'delete-note');
-  textButton = createTextButton('delete', 'material-icons', 'action__icon');
+  const buttonSecondSectionSecond = createButton(
+    'action',
+    `${NOTE_ACTIONS.DELETE}`
+  );
+  textButton = createTextButton(
+    `${ICON_TYPES.DELETE}`,
+    'material-icons',
+    'action__icon'
+  );
   buttonSecondSectionSecond.appendChild(textButton);
 
   const noteSectionSecond = createSection('note__section');
