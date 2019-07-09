@@ -52,10 +52,8 @@ function callback() {
   renderNoteList(noteList, initialNotes);
 
   function renderNoteList(listRef, notes) {
-    Array.from(listRef.children).forEach(element => {
-      element.remove();
-    });
     const arr = notes.map(element => createListItem(element));
+    listRef.innerHTML = '';
     listRef.append(...arr);
   }
 
