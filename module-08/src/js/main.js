@@ -72,19 +72,18 @@ function callback() {
     body.value = '';
   }
 
-  function hendleDeleteNote(event) {
-    const target = event.target;
+  function hendleDeleteNote({ target }) {
     const text = target.textContent;
 
     if (target.nodeName !== 'I' || text !== 'delete') return;
 
-    const note = event.target.closest('li');
+    const note = target.closest('li');
 
     removeListItem(note);
   }
 
-  function hendleFilterNotes(event) {
-    const newNotepad = notepad.filterNotesByQuery(event.target.value);
+  function hendleFilterNotes({ target }) {
+    const newNotepad = notepad.filterNotesByQuery(target.value);
     renderNoteList(noteList, newNotepad);
   }
 
