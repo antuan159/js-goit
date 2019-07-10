@@ -42,10 +42,10 @@ function callback() {
   const list = document.querySelector('.note-list');
   const search = document.querySelector('.search-form');
 
-  // ======= hendlers ==========
-  form.addEventListener('submit', hendleSabmitForm);
-  list.addEventListener('click', hendleDeleteNote);
-  search.addEventListener('input', hendleFilterNotes);
+  // ======= handlers ==========
+  form.addEventListener('submit', handleSabmitForm);
+  list.addEventListener('click', handleDeleteNote);
+  search.addEventListener('input', handleFilterNotes);
 
   //======== functions =========
 
@@ -57,11 +57,11 @@ function callback() {
     listRef.append(...arr);
   }
 
-  function hendleSabmitForm(event) {
+  function handleSabmitForm(event) {
     event.preventDefault();
     const title = document.querySelector('.note-editor input');
     const body = document.querySelector('.note-editor textarea');
-    if (title.value === '' && body.value === '') {
+    if (title.value === '' || body.value === '') {
       alert('Необходимо заполнить все поля!');
       return;
     }
@@ -72,7 +72,7 @@ function callback() {
     body.value = '';
   }
 
-  function hendleDeleteNote({ target }) {
+  function handleDeleteNote({ target }) {
     const text = target.textContent;
 
     if (target.nodeName !== 'I' || text !== 'delete') return;
@@ -82,7 +82,7 @@ function callback() {
     removeListItem(note);
   }
 
-  function hendleFilterNotes({ target }) {
+  function handleFilterNotes({ target }) {
     const newNotepad = notepad.filterNotesByQuery(target.value);
     renderNoteList(noteList, newNotepad);
   }
