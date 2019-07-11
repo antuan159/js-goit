@@ -68,8 +68,7 @@ function callback() {
     const note = createNote(title.value, body.value);
     notepad.saveNote(note);
     noteList.append(createListItem(note));
-    title.value = '';
-    body.value = '';
+    form.reset();
   }
 
   function handleDeleteNote({ target }) {
