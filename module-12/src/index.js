@@ -20,6 +20,7 @@ renderNoteList(localData.load("Notes"));
 refs.form.addEventListener("submit", handleSabmitForm);
 refs.list.addEventListener("click", handleDeleteNote);
 refs.search.addEventListener("input", handleFilterNotes);
+refs.search.addEventListener("submit", handleFilterEvent);
 refs.btnMicroModal.addEventListener("click", handleOpenMicromodal);
 
 function handleSabmitForm(event) {
@@ -45,6 +46,10 @@ function handleDeleteNote({ target }) {
   if (target.nodeName !== "I" || text !== "delete") return;
   const note = target.closest("li");
   removeListItem(note, notepad);
+}
+
+function handleFilterEvent(event) {
+  event.preventDefault();
 }
 
 function handleFilterNotes({ target }) {
