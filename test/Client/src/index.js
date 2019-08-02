@@ -51,7 +51,6 @@ function renderList(cardsItems) {
 
 //   const input = document.querySelector('input[type="file"]').files[0];
 //   const downloadedFile = getBase64(input);
-//   console.log(downloadedFile);
 //   const dataJson = {
 //     name: form.name.value,
 //     gender: form.radio.value,
@@ -64,13 +63,14 @@ function renderList(cardsItems) {
 //     .then(notyf.success("good!"))
 //     .catch(error => notyf.error(error + "bad!"));
 // }
+
 // function getBase64(file) {
 //   let reader = new FileReader();
 //   reader.readAsDataURL(file);
 //   reader.onload = function() {
-//     console.log(reader.result);
+//     notyf.success(reader.result);
 //   };
 //   reader.onerror = function(error) {
-//     console.log("Error: ", error);
+//     notyf.error("Error: ", error);
 //   };
 // }
