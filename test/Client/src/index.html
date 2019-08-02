@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Notepad</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <form id="form">
+      <fieldset>
+        <legend>Форма</legend>
+        <p class="form__item">
+          <label for="name">Имя</label>
+          <input type="text" id="name" required />
+        </p>
+        <p class="form__item">
+          <label for="radio-1">Man</label>
+          <input type="radio" name="radio" value="Man" id="radio-1" checked />
+          <label for="radio-2">Woman</label>
+          <input type="radio" name="radio" value="Woman" id="radio-2" />
+        </p>
+        <p class="form__item">
+          Country
+          <select id="country" name="select">
+            <option value="Ukraine">Ukraine</option>
+            <option value="U.S.A">U.S.A</option>
+            <option value="Germany">Germany</option>
+          </select>
+        </p>
+        <p class="form__item">
+          <input type="checkbox" name="checkBox" value="html5" checked />html5
+          <input type="checkbox" name="checkBox" value="dotnet" />.net
+          <input type="checkbox" name="checkBox" value="java" />java
+        </p>
+        <p class="form__item">
+          <input type="file" name="file" />
+        </p>
+        <p class="form__item"><input type="submit" value="Отправить" /></p>
+      </fieldset>
+    </form>
+    <ul class="cards-list"></ul>
+  </body>
+</html>
