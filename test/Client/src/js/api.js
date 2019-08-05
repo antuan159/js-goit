@@ -1,16 +1,16 @@
 const URL = "http://localhost:3000/cards";
 
-export const get = () => {
-  return fetch(URL).then(response => {
-    if (response.ok) {
-      return response.json();
-    }
-
-    throw new Error("Error while fetching" + response.statusText);
-  });
+export const get = async () => {
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };
 
-export const add = card => {
+export const add = async card => {
   const opts = {
     method: "POST",
     headers: {
@@ -18,11 +18,11 @@ export const add = card => {
     },
     body: JSON.stringify(card)
   };
-  return fetch(URL, opts).then(response => {
-    if (response.ok) {
-      return response.json();
-    }
-
-    throw new Error("Error while fetching" + response.statusText);
-  });
+  try {
+    const response = await fetch(URL, opts);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };

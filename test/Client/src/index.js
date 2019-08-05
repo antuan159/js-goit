@@ -11,16 +11,20 @@ const refs = {
   form: document.querySelector("#form")
 };
 //------- render list---------
-api
-  .get()
-  .then(items => {
+
+getAndRender();
+
+async function getAndRender() {
+  try {
+    const data = await api.get();
     const arr = sortByPriority(items);
     renderList(arr);
     notyf.success("good!");
-  })
-  .catch(error => {
-    notyf.error("bad!");
-  });
+    return data;
+  } catch (error) {
+    notyf.error(`bad! ${error}`);
+  }
+}
 
 function sortByPriority(arr) {
   const tmp = arr.sort((a, b) => {
@@ -40,9 +44,9 @@ function renderList(cardsItems) {
 //------- end render list---------
 
 //--------------- uncomment and clear db.json----------------------
-//refs.form.addEventListener("submit", handleSubmitForm);
+// refs.form.addEventListener("submit", handleSubmitForm);
 
-// function handleSubmitForm(event) {
+// async function handleSubmitForm(event) {
 //   event.preventDefault();
 //   let arr = [];
 //   form.checkBox.forEach(element => {
@@ -58,10 +62,13 @@ function renderList(cardsItems) {
 //     languages: arr,
 //     file: downloadedFile
 //   };
-//   api
-//     .add(dataJson)
-//     .then(notyf.success("good!"))
-//     .catch(error => notyf.error(error + "bad!"));
+//   try {
+//     const data = await api.add(dataJson);
+//     notyf.success("good!");
+//     return data;
+//   } catch (error) {
+//     notyf.error(`bad! ${error}`);
+//   }
 // }
 
 // function getBase64(file) {
