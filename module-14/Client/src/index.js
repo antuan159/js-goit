@@ -9,14 +9,10 @@ import { renderNoteList, addListItem } from "./js/view";
 // ======= variables =========
 
 const notepad = new Notepad();
-
-notepad.getNotes().then(item => {
-  notepad.notes = item;
-  renderNoteList(notepad.notes);
-});
-
 const notyf = new Notyf();
 microModal.init();
+
+main();
 
 // ======= handlers ==========
 refs.form.addEventListener("submit", handleSabmitForm);
@@ -25,6 +21,16 @@ refs.search.addEventListener("input", handleFilterNotes);
 refs.search.addEventListener("submit", handleFilterEvent);
 refs.btnMicroModal.addEventListener("click", handleOpenMicromodal);
 //refs.list.addEventListener("click", handleUpdateNote);
+
+async function main() {
+  try {
+    const data = await notepad.getNotes();
+    notepad.notes = data;
+    renderNoteList(notepad.notes);
+  } catch (error) {
+    notyf.error(`Что то пошло не так!! + ${error}`);
+  }
+}
 
 async function handleSabmitForm(event) {
   event.preventDefault();
