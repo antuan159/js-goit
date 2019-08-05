@@ -1,4 +1,4 @@
 # server
-server/
-!server/db.json
-!server/package.json
+!Server/db.json
+!Server/package.json
+Server/node_modules
