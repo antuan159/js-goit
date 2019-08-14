@@ -17,10 +17,10 @@ main();
 // ======= handlers ==========
 refs.form.addEventListener("submit", handleSabmitForm);
 refs.list.addEventListener("click", handleDeleteNote);
+refs.list.addEventListener("click", handleUpdateNote);
 refs.search.addEventListener("input", handleFilterNotes);
 refs.search.addEventListener("submit", handleFilterEvent);
 refs.btnMicroModal.addEventListener("click", handleOpenMicromodal);
-//refs.list.addEventListener("click", handleUpdateNote);
 
 async function main() {
   try {
@@ -32,24 +32,57 @@ async function main() {
   }
 }
 
-async function handleSabmitForm(event) {
+async function handleSabmitForm(event, obj) {
   event.preventDefault();
+  const titleNote = document.querySelector(".note-editor input");
+  const bodyNote = document.querySelector(".note-editor textarea");
+  if (!isFullFilds(titleNote.value, bodyNote.value)) return;
+
+  if (obj) {
+    try {
+      
+      const newNotes = await notepad.updateNoteContent(obj.id, obj);
+
+      notyf.success("Обновленно!");
+      // microModal.close("note-editor-modal");
+      // refs.form.reset();
+    } catch (error) {
+      console.log(`не обновилась ${error}`);
+    }
+    return;
+  } else {
+    try {
+      const save = await notepad.saveNote(titleNote.value, bodyNote.value);
+      addListItem(save);
+      notyf.success("Заметка успешно добавленна!");
+      microModal.close("note-editor-modal");
+      refs.form.reset();
+      return save;
+    } catch (error) {
+      notyf.error("Заметка не добавлена!!!");
+    }
+  }
+}
+
+function isFullFilds(title, body) {
+  if (title === "" || body === "") {
+    notyf.error("Необходимо заполнить все поля!");
+    return false;
+  }
+  return true;
+}
+
+function handleUpdateNote(event) {
+  const text = event.target.textContent;
+  if (event.target.nodeName !== "I" || text !== "edit") return;
+  const note = event.target.closest("li");
   const title = document.querySelector(".note-editor input");
   const body = document.querySelector(".note-editor textarea");
-  if (title.value === "" || body.value === "") {
-    notyf.error("Необходимо заполнить все поля!");
-    return;
-  }
-  try {
-    const save = await notepad.saveNote(title.value, body.value);
-    addListItem(save);
-    notyf.success("Заметка успешно добавленна!");
-    microModal.close("note-editor-modal");
-    refs.form.reset();
-    return save;
-  } catch (error) {
-    notyf.error("Заметка не добавлена!!!");
-  }
+  const find = notepad.findNoteById(note.dataset.id);
+  title.value = find.title;
+  body.value = find.body;
+  microModal.show("note-editor-modal");
+  handleSabmitForm(event, find);
 }
 
 async function handleDeleteNote({ target }) {
@@ -68,22 +101,6 @@ async function handleDeleteNote({ target }) {
     notyf.error("Что то пошло не так!! Заметка не удалена!!!");
   }
 }
-
-// function handleUpdateNote({ target }) {
-//   const text = target.textContent;
-//   if (target.nodeName !== "I" || text !== "edit") return;
-//   const note = target.closest("li");
-
-//   microModal.show("note-editor-modal");
-//   event.preventDefault();
-//   const title = document.querySelector(".note-editor__input");
-//   const body = document.querySelector(".note-editor textarea");
-
-//   notepad.findNoteById(note.dataset.id).then(note => {
-//     title.value = note.title;
-//     body.value = note.body;
-//   });
-// }
 
 function handleFilterEvent(event) {
   event.preventDefault();

@@ -51,6 +51,7 @@ export const updateNoteItem = async (id, updateNote) => {
   try {
     const response = await fetch(`${URL}/${id}`, opts);
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     throw error;

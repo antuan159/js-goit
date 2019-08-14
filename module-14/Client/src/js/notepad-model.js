@@ -4,13 +4,8 @@ import * as api from "./services/api.js";
 export default class Notepad {
   constructor() {}
 
-  findNoteById = async id => {
-    try {
-      const find = await this.notes.find(e => e.id === id);
-      return find;
-    } catch (error) {
-      throw error;
-    }
+  findNoteById = id => {
+    return this.notes.find(e => e.id == id);
   };
 
   filterNotesByQuery = async query => {
@@ -52,6 +47,7 @@ export default class Notepad {
   updateNoteContent = async (id, updatedContent) => {
     try {
       const updateNote = await api.updateNoteItem(id, updatedContent);
+
       this.notes = this.notes.map(item => {
         item.id === updateNote.id ? updateNote : item;
       });
